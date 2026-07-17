@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by eralaima, hariandr*
+*This project has been created as part of the 42 curriculum by eralaima, haniandr*
 
 <div align="center">
 
@@ -167,7 +167,7 @@ hexa_maze = maze.create_hexa_maze()
 
 ## Team management
 
-**@hariandr**: Program the backend, the DepthFirstSearch algorithm in ***mazegen*** package, and the algorithm for reading and retrieving the ***config.txt*** file. The main file is ***a_maze_ing.py***
+**@haniandr**: Program the backend, the DepthFirstSearch algorithm in ***mazegen*** package, and the algorithm for reading and retrieving the ***config.txt*** file. The main file is ***a_maze_ing.py***
 
 
 **@eralaima**: Responsible for ASCII formatting of the maze in ***maze_display*** package, the menu bar in ***input_choice***, converting the path to binary, writing to the output file, ***makefile***, ***requirements.txt***, and ***pyproject.toml***

@@ -18,15 +18,27 @@ class Grid:
 
     # Full width and height by cells
     def create_grid(self) -> None:
+        """
+        Initialize the grid with all walls present.
+
+        Each cells starts with a value 0xF,
+        meaning that the four walls(N,E,S,W) are closed.
+        """
         self.cells = []
-        for y in range(self.height):
+        for _ in range(self.height):
             line: list[int] = []
-            for x in range(self.width):
+            for _ in range(self.width):
                 line.append(0xF)
             self.cells.append(line)
 
     # Break the wall for creating a path.
     def remove_wall(self, x: int, y: int, direction: int) -> None:
+        """
+        Remove a wall between a cell and its neighbor.
+
+        The opposite wall of the neighboring cell
+        is also removed to keep the grid consistent.
+        """
         dx, dy = self.DELTA[direction]
         nx = x + dx
         ny = y + dy
@@ -39,6 +51,9 @@ class Grid:
 
     # Opposite of remove_wall, it add wall
     def add_wall(self, x: int, y: int, direction: int) -> None:
+        """
+        Add a wall between a cell and its neighbor.
+        """
         dx, dy = self.DELTA[direction]
         nx = x + dx
         ny = y + dy
@@ -51,4 +66,7 @@ class Grid:
 
     # Check if cell is not overflowed the grid
     def is_valid(self, x: int, y: int) -> bool:
+        """
+        Check if a cell is inside the grid or not.
+        """
         return 0 <= x < self.width and 0 <= y < self.height

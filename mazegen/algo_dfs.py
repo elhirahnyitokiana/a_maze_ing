@@ -6,6 +6,13 @@ import sys
 
 
 class DepthFirstSearch(MazeGenerator):
+    """
+    Generate and solve a maze using depth-first search.
+
+    Perfect mazes are generated using a DFS backtracking algorithm.
+    Imperfect mazes are created by removing additional walls while
+    preventing 3x3 open areas.
+    """
     def __init__(
         self,
         width: int,
@@ -20,6 +27,9 @@ class DepthFirstSearch(MazeGenerator):
 
     # Generate the grid
     def generate(self) -> None:
+        """
+        Generate the maze using the depth-first search
+        """
         stack = [self.entry]
         visited = {self.entry}
         visited.update(self.logo)
@@ -41,6 +51,12 @@ class DepthFirstSearch(MazeGenerator):
             self.maze_imperfect()
 
     # Create a maze if it's False (imperfect)
+    """
+    When the maze is imperfect, there is many possible
+    choices direction and result path
+    But when it's perfect, there is just one path
+    from the entry to the exit
+    """
     def maze_imperfect(self) -> None:
         lst: list[int] = [1, 2, 3]
         directions: list[int] = [
@@ -68,6 +84,16 @@ class DepthFirstSearch(MazeGenerator):
         cell: tuple[int, int],
         visited: set[tuple[int, int]],
     ) -> list[int]:
+        """
+        Return all unvisited neighboring cells.
+
+        Args:
+            cell: Current cell coordinates.
+            visited: Set of already visited cells.
+
+        Returns:
+            A list of valid directions leading to unvisited neighbors.
+        """
         g = self.grid
         x, y = cell
         neighbors = []
@@ -81,6 +107,12 @@ class DepthFirstSearch(MazeGenerator):
 
     # Search a path from the entry to the exit
     def solver(self) -> list[tuple[int, int]] | None:
+        """
+        Find a path from the maze entry to the exit using breadth-first search.
+
+        Returns:
+            The shortest path as a list of coordinates or None if no path exists.
+        """
         parent: dict[tuple[int, int], tuple[int, int] | None] = {
             self.entry: None
         }
@@ -101,6 +133,12 @@ class DepthFirstSearch(MazeGenerator):
 
     # Return all neighbors existed
     def get_neighbors(self, x: int, y: int) -> list[tuple[int, int]]:
+        """
+        Return all accessible neighboring cells.
+
+        A neighbor is accessible when no wall separates it from the
+        current cell.
+        """
         g = self.grid
         neighbors = []
 

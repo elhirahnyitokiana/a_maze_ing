@@ -30,6 +30,12 @@ class ValidFileInput(BaseModel):
     """
     @model_validator(mode="after")
     def validate_input(self) -> "ValidFileInput":
+        """
+        Validate maze configuration constraints.
+
+        Checks output filename format, entry and exit positions,
+        and ensures maze dimensions are large enough.
+        """
         if "." not in self.output_filename:
             raise ValueError("File input is invalid : no '.' detected")
         name, ext = self.output_filename.split(".", 1)

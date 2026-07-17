@@ -63,6 +63,12 @@ Regroups all function to print all result:
 
 
 class ASCIIRenderer:
+    """
+    Render a maze in the terminal using ASCII characters and colors.
+
+    The renderer can display the maze solution path and switch between
+    different color themes.
+    """
     def __init__(
         self, display_solution: bool, color_index: int = 0
     ) -> None:
@@ -72,13 +78,22 @@ class ASCIIRenderer:
     # Apply the color into the grid
     @property
     def colors(self) -> dict[str, str]:
+        """
+        Return the currently selected color set.
+        """
         return COLOR_SETS[self.color_index]
 
     # Apply the next color when the choice is 3 in the menu (change maze color)
     def next_color(self) -> None:
+        """
+        Switch to the next available color theme.
+        """
         self.color_index = (self.color_index + 1) % len(COLOR_SETS)
 
     def _c(self, key: str, text: str) -> str:
+        """
+        Apply a color to the given text and reset the terminal color.
+        """
         return self.colors[key] + text + RESET
 
     # Display the grid into ascii format
@@ -87,6 +102,13 @@ class ASCIIRenderer:
         maze: MazeGenerator,
         solution: list[tuple[int, int]],
     ) -> None:
+        """
+        Display the maze in the terminal.
+
+        Args:
+            maze: The maze to render.
+            solution: The path from the entry to the exit.
+        """
         solution_set: set[tuple[int, int]] = set(solution)
         logo_set: set[tuple[int, int]] = set(maze.logo)
 
@@ -102,6 +124,9 @@ class ASCIIRenderer:
 
     # Print the format of top border
     def _print_top_border(self, maze: MazeGenerator, y: int) -> None:
+        """
+        Print the north walls of a maze row.
+        """
         row = self._c("wall", "▪")
         for x in range(maze.width):
             has_north = bool(maze.grid.cells[y][x] & Grid.NORTH)
@@ -117,6 +142,9 @@ class ASCIIRenderer:
         solution_set: set[tuple[int, int]],
         logo_set: set[tuple[int, int]],
     ) -> None:
+        """
+        Print the contents of a maze row and its east walls.
+        """
         row = self._c("wall", "┃")
         for x in range(maze.width):
             color_key, char = self._get_cell(
@@ -136,6 +164,9 @@ class ASCIIRenderer:
         solution_set: set[tuple[int, int]],
         logo_set: set[tuple[int, int]],
     ) -> tuple[str, str]:
+        """
+        Determine the character and color used to represent a cell.
+        """
         if (x, y) in logo_set:
             return "logo", "█"
         if (x, y) == maze.entry:
@@ -148,6 +179,9 @@ class ASCIIRenderer:
 
     # Print the format of bottom border
     def _print_bottom_border(self, maze: MazeGenerator) -> None:
+        """
+        Print the south walls of the last maze row.
+        """
         row = self._c("wall", "▪")
         for x in range(maze.width):
             last_y = maze.height - 1
@@ -158,6 +192,9 @@ class ASCIIRenderer:
 
     # Print the menu
     def print_menu(self) -> None:
+        """
+        Display the interactive menu options.
+        """
         print("\n=== A-Maze-ing ===")
         print("1. Re-generate a new maze")
         print("2. Show/Hide path from entry to exit")

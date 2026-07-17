@@ -21,6 +21,18 @@ def input_choices(
     solution: list[tuple[int, int]],
     file_name: str,
 ) -> None:
+    """
+Handle the user's menu choices.
+
+The user can regenerate the maze, toggle the solution display,
+change the color theme, or quit the program.
+
+Args:
+    maze: The maze currently displayed.
+    renderer: The ASCII renderer used to display the maze.
+    solution: The path from the maze entry to its exit.
+    file_name: Name of the maze configuration file.
+"""
 
     # When the menu closed, it's totally deseapear
     renderer.print_menu()

@@ -5,6 +5,13 @@ import sys
 
 
 class MazeGenerator(ABC):
+    """
+    Abstract base class for maze generation algorithms.
+
+    This class stores common maze generation data and provides
+    shared utilities such as hexadecimal conversion,
+    path formatting, logo placement, and maze output handling.
+    """
     def __init__(
         self,
         width: int,
@@ -31,6 +38,12 @@ class MazeGenerator(ABC):
 
     # Necessary for the imperfect maze
     def verif_3x3(self, nx: int, ny: int) -> bool:
+        """
+        Check if a 3x3 area contains a valid hole position.
+
+        Returns:
+            True if a hole exists in the area, otherwise False.
+        """
         for ty in range(-2, 1):
             for tx in range(-2, 1):
                 x = nx + tx
@@ -45,6 +58,12 @@ class MazeGenerator(ABC):
 
     # Check if is there a hole
     def is_there_hole(self, nx: int, ny: int) -> bool:
+        """
+        Check whether a 3x3 section of the maze is empty.
+
+        Returns:
+            True if no walls divide the area , otherwise False.
+        """
         for y in range(3):
             for x in range(2):
                 if self.grid.cells[ny + y][nx + x] & self.grid.EAST:
@@ -58,6 +77,13 @@ class MazeGenerator(ABC):
 
     # Convert the path into hexadecimal
     def create_hexa_maze(self) -> list[str]:
+        """
+        Converts the path into hexadecimal
+
+        Returns:
+            Stores the result in a list and return
+        it in format hexadecimal
+        """
         hexa_maze: list[str] = []
         hexa = "0123456789ABCDEF"
 
@@ -77,6 +103,13 @@ class MazeGenerator(ABC):
         hexa_maze: list[str],
         entry_to_exit_path: str,
     ) -> None:
+        """
+        Write the maze in hexadecimal in the file.txt(OUTPU_FILE)
+
+        Args:
+            -name of the file to write the maze
+            -the maze hexa 
+        """
         if self.exit is None:
             raise ValueError("Can't print the maze : there is no exit")
 

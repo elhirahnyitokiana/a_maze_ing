@@ -15,6 +15,13 @@ def get_file_content(file_name: str) -> list[str]:
 def transform_input(
     file_name: str, file_content: list[str]
 ) -> dict[str, Any]:
+    """
+    Parse and validate a maze config file.
+
+    The function reads the configuration lines,
+    ignores comments, extracts the required settings
+    and convert them into a dictionnary
+    """
     settings = [
         "WIDTH",
         "HEIGHT",
@@ -69,6 +76,12 @@ def transform_input(
 
 # Check if the input is valid, check with valid_file_input
 def parse_input_file(file_name: str) -> ValidFileInput:
+    """
+    Parse and validate a maze input config file.
+
+    The function reads the file content, extracts the configuration
+    settings, and creates a validation ValidFileInput
+    """
     try:
         file_content = get_file_content(file_name)
     except Exception as e:
